@@ -9,9 +9,13 @@ type New = {
     lead: string,
 }
 
-export const Home = ({news}: any) => {
+interface Props {
+    news: Array<New>
+}
 
-    const [languageId, setLanguageId] = useState(1);
+export const Home = ({news}: Props) => {
+
+    const [languageId, setLanguageId] = useState<number>(1)
 
   return (
       <div className='page-container'>

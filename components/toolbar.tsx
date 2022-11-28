@@ -1,12 +1,12 @@
 import styles from '../styles/Toolbar.module.css'
 import Image from 'next/image'
-import { FunctionComponent } from "react";
+import {Dispatch, FC, SetStateAction} from "react";
 
-type Props = {
-    setLanguageId: any,
+interface Props {
+    setLanguageId: Dispatch<SetStateAction<number>>,
 }
 
-export const Toolbar: FunctionComponent<Props> = ({setLanguageId}) => {
+export const Toolbar: FC<Props> = ({setLanguageId}) => {
 
     const manageClick = () => {
         setLanguageId(2)
