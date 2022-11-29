@@ -21,7 +21,11 @@ export const Toolbar: FC<Props> = ({ setLanguageId }) => {
                 width={161.33}
                 height={16}
             />
-            {setLanguageId ? <button onClick={handleClick}></button> : <></>}
+            {setLanguageId ? (
+                <button onClick={handleClick}>English</button>
+            ) : (
+                <></>
+            )}
         </div>
     )
 }
