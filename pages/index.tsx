@@ -1,15 +1,6 @@
 import styles from "../styles/Home.module.css"
 import { Toolbar } from "../components/toolbar"
 import { useEffect, useState } from "react"
-import Head from "next/head"
-
-type New = {
-    title: string
-    image_big: string
-    date: string
-    lead: string
-    url: string
-}
 
 export const Home = () => {
     const [languageId, setLanguageId] = useState<number>(1)
@@ -33,14 +24,6 @@ export const Home = () => {
 
     return (
         <div className="page-container">
-            <Head>
-                <title>ITMO news</title>
-                <meta
-                    name="description"
-                    content="Web app to read news of ITMO"
-                />
-                <link rel="icon" href="/itmo_icon.png" />
-            </Head>
             <Toolbar setLanguageId={setLanguageId} />
 
             <div className={styles.main}>
@@ -49,23 +32,36 @@ export const Home = () => {
                 </div>
                 <div className={styles.news}>
                     {news ? (
-                        news.map((article: New, index: number) => (
-                            <div
-                                onClick={() =>
-                                    (window.location.href = article.url)
+                        news.map((article: New, index: number) => {
+                            let parsedDate: Date = new Date(article.date)
+                            const longEnUSFormatter = new Intl.DateTimeFormat(
+                                "ru-RU",
+                                {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
                                 }
-                                className={styles.article}
-                                key={index}
-                            >
-                                <img
-                                    src={article.image_big}
-                                    alt={article.title}
-                                />
-                                <h5>{article.date}</h5>
-                                <p>{article.title}</p>
-                                {/*<div dangerouslySetInnerHTML={{ __html: article.lead }}></div>*/}
-                            </div>
-                        ))
+                            )
+                            let date: string =
+                                longEnUSFormatter.format(parsedDate)
+                            return (
+                                <div
+                                    onClick={() =>
+                                        (window.location.href = article.url)
+                                    }
+                                    className={styles.article}
+                                    key={index}
+                                >
+                                    <img
+                                        src={article.image_big}
+                                        alt={article.title}
+                                    />
+                                    <h5>{date}</h5>
+                                    <p>{article.title}</p>
+                                    {/*<div dangerouslySetInnerHTML={{ __html: article.lead }}></div>*/}
+                                </div>
+                            )
+                        })
                     ) : (
                         <></>
                     )}
