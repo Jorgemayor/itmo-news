@@ -1,2 +1,35 @@
 .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.title {
+    margin-top: 50px;
+}
+
+.title h5 {
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.0002px;
+    text-transform: uppercase;
+
+    color: #6a6a6a;
+}
+
+.content img {
+    margin-left: 15%;
+}
+
+.undefined {
+    margin-bottom: 35%;
+}
+
+.home-button {
+    width: fit-content;
 }

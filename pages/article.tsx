@@ -1,28 +1,45 @@
-import { Toolbar } from "../../components/toolbar"
-import styles from "../../styles/Article.module.css"
-import Image from "next/image";
-import {NextPage} from "next";
-import {NextRouter, withRouter} from "next/router";
+import { Toolbar } from "../components/toolbar"
+import styles from "../styles/Article.module.css"
+import { NextRouter, useRouter, withRouter } from "next/router"
 
 interface Props {
     router: NextRouter
 }
 
 export const Article = (props: Props) => {
-    const {title, image_big: image, date, lead, } = props.router.query
-    console.log(title)
+    const { title, image_big: image, date, lead, url } = props.router.query
+    const router = useRouter()
+
+    const handleClick = () => {
+        router.push("/").then((r) => console.log(r))
+    }
+
     return (
         <div className="page-container">
             <Toolbar />
             <div className={styles.main}>
-                <div className={styles.title}>
-                    <h1>{title}</h1>
-                    <h5>{date}</h5>
-                </div>
-                <div className={styles.content}>
-                    <img src={image} alt={title}/>
-                    <div dangerouslySetInnerHTML={{ __html: lead }}></div>
-                </div>
+                {title && image && date && lead && url ? (
+                    <>
+                        <div className={styles.title}>
+                            <h1>{title}</h1>
+                            <h5>{date}</h5>
+                        </div>
+                        <div className={styles.content}>
+                            <img src={image} alt={title} />
+                            <div
+                                dangerouslySetInnerHTML={{ __html: lead }}
+                            ></div>
+                            <p>Источник: {url}</p>
+                        </div>
+                    </>
+                ) : (
+                    <div className={styles.undefined}>
+                        <h1>Новость не найдена.</h1>
+                    </div>
+                )}
+                <button className={styles.homeButton} onClick={handleClick}>
+                    Home
+                </button>
             </div>
         </div>
     )

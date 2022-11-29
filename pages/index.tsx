@@ -1,10 +1,13 @@
 import styles from "../styles/Home.module.css"
 import { Toolbar } from "../components/toolbar"
 import { useEffect, useState } from "react"
+import { NextPage } from "next"
+import { NextRouter, useRouter } from "next/router"
 
-export const Home = () => {
+export const Home: NextPage = () => {
     const [languageId, setLanguageId] = useState<number>(1)
     const [news, setNews] = useState<New[]>()
+    const router: NextRouter = useRouter()
 
     const getServerSideProps = async () =>
         await fetch(
@@ -47,7 +50,13 @@ export const Home = () => {
                             return (
                                 <div
                                     onClick={() =>
-                                        (window.location.href = article.url)
+                                        router.push(
+                                            {
+                                                pathname: "/article",
+                                                query: { ...article, date },
+                                            },
+                                            `/article`
+                                        )
                                     }
                                     className={styles.article}
                                     key={index}
@@ -58,7 +67,6 @@ export const Home = () => {
                                     />
                                     <h5>{date}</h5>
                                     <p>{article.title}</p>
-                                    {/*<div dangerouslySetInnerHTML={{ __html: article.lead }}></div>*/}
                                 </div>
                             )
                         })
