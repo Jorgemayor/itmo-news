@@ -18,7 +18,11 @@ export const Article = (props: Props) => {
         <div className="page-container">
             <Toolbar />
             <div className={styles.main}>
-                {title && image && date && lead && url ? (
+                {typeof title === "string" &&
+                typeof image === "string" &&
+                typeof date === "string" &&
+                typeof lead === "string" &&
+                typeof url === "string" ? (
                     <>
                         <div className={styles.title}>
                             <h1>{title}</h1>
